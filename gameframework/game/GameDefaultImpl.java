@@ -68,7 +68,7 @@ public class GameDefaultImpl implements Game, Observer {
 		lifeText = new Label("Lives:");
 		scoreText = new Label("Score:");
 		information = new Label("State:");
-		informationValue = new Label("Playing");
+		informationValue = new Label("Loading");
 		currentLevel = new Label("Level:");
 		createGUI();
 	}
@@ -222,11 +222,11 @@ public class GameDefaultImpl implements Game, Observer {
 			stuff[i].setValue("Vide");
 		}
 		levelNumber = 0;
+		levelCompleted = new ObservableValue<Boolean>(false);
+		levelCompleted.addObserver(this);
+		gameOver = new ObservableValue<Boolean>(false);
+		gameOver.addObserver(this);
 		while(true){
-			levelCompleted = new ObservableValue<Boolean>(false);
-			levelCompleted.addObserver(this);
-			gameOver = new ObservableValue<Boolean>(false);
-			gameOver.addObserver(this);
 			try {
 				if (currentPlayedLevel != null && currentPlayedLevel.isAlive()) {
 					currentPlayedLevel.interrupt();
@@ -234,11 +234,10 @@ public class GameDefaultImpl implements Game, Observer {
 				}
 				currentPlayedLevel = (GameLevelDefaultImpl) gameLevels.get(levelNumber);
 				levelNumber++;
+				informationValue.setText("Playing");
 				currentLevelValue.setText(Integer.toString(levelNumber));
 				currentPlayedLevel.start();
 				currentPlayedLevel.join();
-				if(gameOver.getValue())
-					levelNumber = 0;
 			} catch (Exception e) {
 				System.out.println("Exception in main game loop !");
 				e.printStackTrace();
@@ -291,25 +290,45 @@ public class GameDefaultImpl implements Game, Observer {
 	public void update(Observable o, Object arg) {
 		if (o == levelCompleted) {
 			if (levelCompleted.getValue()) {
-				informationValue.setText("You win");
+				informationValue.setText(":D");
+				try {
+					//TODO: replace by a more explicit countdown
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				currentPlayedLevel.interrupt();
 				currentPlayedLevel.end();
 			}
+		} else if (o == gameOver) {
+			if (gameOver.getValue()) {
+				informationValue.setText("Nooo :'(");
+
+				try {
+					//TODO: replace by a more explicit countdown
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				if(gameOver.getValue()){
+					for(ObservableValue<Integer> lifeCharacter : life)
+						lifeCharacter.setValue(NUMBER_OF_LIVES);
+					levelNumber = 0;
+				}
+
+				currentPlayedLevel.interrupt();
+				currentPlayedLevel.end();
+			}
+			else
+				informationValue.setText("Playing");
 		} else {
 			for (ObservableValue<Integer> lifeObservable : life) {
 				if (o == lifeObservable) {
 					int lives = ((ObservableValue<Integer>) o).getValue();
 					lifeValue.setText(Integer.toString(lives));
 					if (lives == 0) {
-						try {
-							informationValue.setText("Defeat");
-							
-							Thread.sleep(5000);
-							
-							currentPlayedLevel.reset();
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+						gameOver.setValue(true);
 					}
 				}
 			}
