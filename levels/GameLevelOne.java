@@ -74,7 +74,7 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Observer<Shoot
 			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 
 	public static final int SPRITE_SIZE = 16;
-	public static final int NUMBER_OF_GOBLINS = 1;//4;
+	public static final int NUMBER_OF_GOBLINS = 4;
 	
 	protected Arthurius _Arthurius;
 	protected static MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
@@ -154,17 +154,17 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Observer<Shoot
 		//Goblins time !
 		List<Point> goblinsPos = new ArrayList<Point>();
 		goblinsPos.add(new Point( 1 * SPRITE_SIZE,20 * SPRITE_SIZE));
-//		goblinsPos.add(new Point( 3 * SPRITE_SIZE,28 * SPRITE_SIZE));
-//		goblinsPos.add(new Point(10 * SPRITE_SIZE, 4 * SPRITE_SIZE));
-//		goblinsPos.add(new Point(17 * SPRITE_SIZE,28 * SPRITE_SIZE));
+		goblinsPos.add(new Point( 3 * SPRITE_SIZE,28 * SPRITE_SIZE));
+		goblinsPos.add(new Point(10 * SPRITE_SIZE, 4 * SPRITE_SIZE));
+		goblinsPos.add(new Point(17 * SPRITE_SIZE,28 * SPRITE_SIZE));
 
 		List<Point>goblinsFire = new ArrayList<Point>();
 		int[][] fireDirs = new int[NUMBER_OF_GOBLINS][2];
 		fireDirs[0] = new int[] { 1, 0};
-//		fireDirs[1] = new int[] { 0,-1};
-//		fireDirs[2] = new int[] { 0, 1};
-//		fireDirs[3] = new int[] { 0,-1};
-//		
+		fireDirs[1] = new int[] { 0,-1};
+		fireDirs[2] = new int[] { 0, 1};
+		fireDirs[3] = new int[] { 0,-1};
+		
 		int index = 0;
 		for(Point pos : goblinsPos){
 			goblinsFire.add((Point) pos.clone());
