@@ -13,12 +13,14 @@ import gameframework.game.SpriteManagerDefaultImpl;
 
 public class Projectile extends GameMovableEphemeral implements Drawable, GameEntity, Overlappable{
 	private final SpriteManagerDefaultImpl spriteManager;
+	private Shooter shooter;
 	public static final int RENDERING_SIZE = 16;
 	
-	public Projectile(Canvas canvas) {
+	public Projectile(Canvas canvas, Shooter shooter) {
 		spriteManager = new SpriteManagerDefaultImpl("images/shuriken.gif",
 				canvas, RENDERING_SIZE, 6);
 		spriteManager.setTypes("down");
+		this.shooter = shooter;
 		setDisappearTimer(5);
 	}	
 
@@ -31,6 +33,10 @@ public class Projectile extends GameMovableEphemeral implements Drawable, GameEn
 		return (new Rectangle(0, 0, RENDERING_SIZE, RENDERING_SIZE));
 	}
 
+	public Shooter getShooter() {
+		return shooter;
+	}
+
 	@Override
 	public void oneStepMoveAddedBehavior() {
 		if(getSpeedVector().getSpeed() > 0) spriteManager.increment();
@@ -38,7 +44,6 @@ public class Projectile extends GameMovableEphemeral implements Drawable, GameEn
 			spriteManager.reset();
 			decrementDisappearTimer();
 		}
-		System.out.println("Projectile pos: " + getPosition());
 	}
 
 	public void stop(){

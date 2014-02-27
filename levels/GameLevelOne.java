@@ -192,12 +192,11 @@ public class GameLevelOne extends GameLevelDefaultImpl implements Observer<Shoot
 	@Override
 	public void update(Shooter s) {
 		GameMovableDriverDefaultImpl pDriv = new GameMovableDriverDefaultImpl();
-		System.out.println("Shooter pos: " + s.getPosition());
 		MoveStrategyStraightLine strat = new MoveStrategyStraightLine(s.getPosition(), (Point) s.getFireDirection().clone());
 		moveBlockerChecker.setMoveBlockerRules(new MoveBlockers());
 		pDriv.setStrategy(strat);
 		pDriv.setmoveBlockerChecker(moveBlockerChecker);
-		Projectile p = new Projectile(canvas);
+		Projectile p = new Projectile(canvas, s);
 		p.setDriver(pDriv);
 		p.setPosition(s.getPosition());
 		universe.addGameEntity(p);

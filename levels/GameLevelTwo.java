@@ -187,7 +187,7 @@ public class GameLevelTwo extends GameLevelDefaultImpl implements Observer<Shoot
 		moveBlockerChecker.setMoveBlockerRules(new MoveBlockers());
 		pDriv.setStrategy(strat);
 		pDriv.setmoveBlockerChecker(moveBlockerChecker);
-		Projectile p = new Projectile(canvas);
+		Projectile p = new Projectile(canvas, s);
 		p.setDriver(pDriv);
 		p.setPosition(s.getPosition());
 		universe.addGameEntity(p);
