@@ -238,8 +238,6 @@ public class GameDefaultImpl implements Game, Observer {
 				currentLevelValue.setText(Integer.toString(levelNumber));
 				currentPlayedLevel.start();
 				currentPlayedLevel.join();
-				if(gameOver.getValue())
-					levelNumber = 0;
 			} catch (Exception e) {
 				System.out.println("Exception in main game loop !");
 				e.printStackTrace();
@@ -311,6 +309,12 @@ public class GameDefaultImpl implements Game, Observer {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+				}
+				
+				if(gameOver.getValue()){
+					for(ObservableValue<Integer> lifeCharacter : life)
+						lifeCharacter.setValue(NUMBER_OF_LIVES);
+					levelNumber = 0;
 				}
 
 				currentPlayedLevel.interrupt();
