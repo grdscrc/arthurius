@@ -68,7 +68,7 @@ public class GameDefaultImpl implements Game, Observer {
 		lifeText = new Label("Lives:");
 		scoreText = new Label("Score:");
 		information = new Label("State:");
-		informationValue = new Label("Playing");
+		informationValue = new Label("Loading");
 		currentLevel = new Label("Level:");
 		createGUI();
 	}
@@ -222,11 +222,11 @@ public class GameDefaultImpl implements Game, Observer {
 			stuff[i].setValue("Vide");
 		}
 		levelNumber = 0;
+		levelCompleted = new ObservableValue<Boolean>(false);
+		levelCompleted.addObserver(this);
+		gameOver = new ObservableValue<Boolean>(false);
+		gameOver.addObserver(this);
 		while(true){
-			levelCompleted = new ObservableValue<Boolean>(false);
-			levelCompleted.addObserver(this);
-			gameOver = new ObservableValue<Boolean>(false);
-			gameOver.addObserver(this);
 			try {
 				if (currentPlayedLevel != null && currentPlayedLevel.isAlive()) {
 					currentPlayedLevel.interrupt();
@@ -298,16 +298,17 @@ public class GameDefaultImpl implements Game, Observer {
 			}
 		} else if (o == gameOver) {
 			if (gameOver.getValue()) {
-				try {
-					informationValue.setText("Nooo :'(");
+				informationValue.setText("Nooo :'(");
 
+				try {
 					//TODO: replace by a more explicit countdown
 					Thread.sleep(2000);
-
-					currentPlayedLevel.reset();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+
+				currentPlayedLevel.interrupt();
+				currentPlayedLevel.end();
 			}
 			else
 				informationValue.setText("Playing");
