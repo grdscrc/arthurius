@@ -4,9 +4,9 @@ import gameframework.base.Drawable;
 import gameframework.base.DrawableImage;
 import gameframework.base.Overlappable;
 import gameframework.game.GameEntity;
-import gameframework.game.GameMovable;
 import gameframework.game.SpriteManagerDefaultImpl;
 import gameplay.Shooter;
+import gameplay.GameMovableUnique;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
@@ -14,7 +14,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import utils.Observer;
 
-public class Goblin extends GameMovable implements Drawable, GameEntity,
+public class Goblin extends GameMovableUnique implements Drawable, GameEntity,
 		Overlappable, Shooter {
 	protected static DrawableImage image = null;
 	protected boolean movable = true;
