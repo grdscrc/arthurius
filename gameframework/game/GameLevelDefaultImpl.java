@@ -36,7 +36,9 @@ public abstract class GameLevelDefaultImpl extends Thread implements GameLevel {
 	@Override
 	public void start() {
 		levelCompleted = g.levelCompleted();
-		gameOver = new ObservableValue<Boolean>(false);
+		gameOver = g.gameOver();
+		levelCompleted.setValue(false);
+		gameOver.setValue(false);
 		init();
 		levelThread = new Thread(this);
 		levelThread.start();
