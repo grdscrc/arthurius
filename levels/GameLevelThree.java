@@ -223,7 +223,7 @@ public class GameLevelThree extends GameLevelDefaultImpl implements Observer<Sho
 			moveBlockerChecker.setMoveBlockerRules(new MoveBlockers());
 			pDriv.setStrategy(strat);
 			pDriv.setmoveBlockerChecker(moveBlockerChecker);
-			Projectile p = new Projectile(canvas);
+			Projectile p = new Projectile(canvas, shooter);
 			p.setDriver(pDriv);
 			
 			p.setPosition(shooter.getPosition());
@@ -235,7 +235,7 @@ public class GameLevelThree extends GameLevelDefaultImpl implements Observer<Sho
 			moveBlockerChecker.setMoveBlockerRules(new MoveBlockers());
 			projectileDriver.setStrategy(strat);
 			projectileDriver.setmoveBlockerChecker(moveBlockerChecker);
-			Projectile projectile = new Projectile(canvas);
+			Projectile projectile = new Projectile(canvas, shooter);
 			projectile.setDriver(projectileDriver);
 			
 			projectile.setPosition(shooter.getPosition());

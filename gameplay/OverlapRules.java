@@ -114,7 +114,8 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 	}
 
 	public void overlapRule(Goblin g, Projectile p) {
-		universe.removeGameEntity(p);
+		if(!g.equals(p.getShooter()))
+			universe.removeGameEntity(p);
 	}
 
 	public void overlapRule(Arthurius arthurius, SuperCandy spg) {
