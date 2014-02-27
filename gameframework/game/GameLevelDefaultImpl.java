@@ -19,8 +19,10 @@ public abstract class GameLevelDefaultImpl extends Thread implements GameLevel {
 	protected ObservableValue<Boolean> levelCompleted;
 	protected ObservableValue<Boolean> gameOver;
 
-	boolean stopGameLoop, pauseGameLoop;
+	boolean pauseGameLoop;
 	protected final Game g;
+	
+	private Thread levelThread;
 
 	protected abstract void init();
 
@@ -36,27 +38,26 @@ public abstract class GameLevelDefaultImpl extends Thread implements GameLevel {
 		levelCompleted = g.levelCompleted();
 		gameOver = new ObservableValue<Boolean>(false);
 		init();
-		super.start();
+		levelThread = new Thread(this);
+		levelThread.start();
 		try {
-			super.join();
+			levelThread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void reset() {
-		levelCompleted = g.levelCompleted();
-		gameOver = new ObservableValue<Boolean>(false);
 		init();
 	}
 	
 	@Override
 	public void run() {
-		stopGameLoop = false;
+		Thread thisThread = Thread.currentThread();
 		pauseGameLoop = false;
 		// main game loop :
 		long start;
-		while (!stopGameLoop && !this.isInterrupted()) {
+		while (thisThread == levelThread && !this.isInterrupted()) {
 			start = new Date().getTime();
 			if(!pauseGameLoop){
 				gameBoard.paint();
@@ -76,7 +77,7 @@ public abstract class GameLevelDefaultImpl extends Thread implements GameLevel {
 	}
 
 	public void end() {
-		stopGameLoop = true;
+		levelThread = null;
 	}
 
 	public void pause() {

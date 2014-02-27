@@ -234,6 +234,7 @@ public class GameDefaultImpl implements Game, Observer {
 				}
 				currentPlayedLevel = (GameLevelDefaultImpl) gameLevels.get(levelNumber);
 				levelNumber++;
+				informationValue.setText("Playing");
 				currentLevelValue.setText(Integer.toString(levelNumber));
 				currentPlayedLevel.start();
 				currentPlayedLevel.join();
@@ -291,25 +292,32 @@ public class GameDefaultImpl implements Game, Observer {
 	public void update(Observable o, Object arg) {
 		if (o == levelCompleted) {
 			if (levelCompleted.getValue()) {
-				informationValue.setText("You win");
+				informationValue.setText(":D");
 				currentPlayedLevel.interrupt();
 				currentPlayedLevel.end();
 			}
+		} else if (o == gameOver) {
+			if (gameOver.getValue()) {
+				try {
+					informationValue.setText("Nooo :'(");
+
+					//TODO: replace by a more explicit countdown
+					Thread.sleep(2000);
+
+					currentPlayedLevel.reset();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			else
+				informationValue.setText("Playing");
 		} else {
 			for (ObservableValue<Integer> lifeObservable : life) {
 				if (o == lifeObservable) {
 					int lives = ((ObservableValue<Integer>) o).getValue();
 					lifeValue.setText(Integer.toString(lives));
 					if (lives == 0) {
-						try {
-							informationValue.setText("Defeat");
-							
-							Thread.sleep(5000);
-							
-							currentPlayedLevel.reset();
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+						gameOver.setValue(true);
 					}
 				}
 			}
