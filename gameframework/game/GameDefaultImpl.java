@@ -293,6 +293,12 @@ public class GameDefaultImpl implements Game, Observer {
 		if (o == levelCompleted) {
 			if (levelCompleted.getValue()) {
 				informationValue.setText(":D");
+				try {
+					//TODO: replace by a more explicit countdown
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				currentPlayedLevel.interrupt();
 				currentPlayedLevel.end();
 			}
@@ -302,7 +308,7 @@ public class GameDefaultImpl implements Game, Observer {
 
 				try {
 					//TODO: replace by a more explicit countdown
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
