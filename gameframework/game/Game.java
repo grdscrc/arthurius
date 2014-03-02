@@ -26,4 +26,6 @@ public interface Game {
 	public ObservableValue<String>[] stuff();
 
 	public ObservableValue<Boolean> levelCompleted();
+
+	public ObservableValue<Boolean> gameOver();
 }
