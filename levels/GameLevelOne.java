@@ -10,7 +10,6 @@ import gameframework.game.OverlapProcessor;
 import gameframework.game.OverlapProcessorDefaultImpl;
 import gameplay.MoveBlockers;
 import gameplay.OverlapRules;
-import gameplay.TeleportPairOfPoints;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class GameLevelOne extends GameLevel {
 	static int[][] tab = { 
 		    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 5, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
+			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 7, 7, 7, 7, 7, 7, 7, 7, 1, 5, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 7, 7, 7, 7, 7, 7, 7, 7, 1, 5, 5, 1, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },

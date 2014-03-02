@@ -10,7 +10,6 @@ import gameframework.game.OverlapProcessor;
 import gameframework.game.OverlapProcessorDefaultImpl;
 import gameplay.MoveBlockers;
 import gameplay.OverlapRules;
-import gameplay.TeleportPairOfPoints;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
