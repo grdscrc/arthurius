@@ -36,7 +36,7 @@ public abstract class GameLevel extends GameLevelDefaultImpl implements Observer
 	
 	protected Arthurius _Arthurius;
 	protected OverlapRules overlapRules;
-	protected static MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
+	protected MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 
 	public GameLevel(Game g) {
 		super(g);
